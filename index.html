@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <a id="save" href="#save">Save Image</a>
+    <canvas id="canvas" width="800" height="702"></canvas>
+    <div style="display:none;">
+        <img id="body-map" src="images/body-map.png" width="800" height="702">
+    </div>
+    <input type="text" id="image" value="">
+
+    <script>
+
+        window.onload = function() {
+            var c=document.getElementById("canvas");
+            var ctx=c.getContext("2d");
+            var img=document.getElementById("body-map");
+            ctx.drawImage(img,0,0);
+        };
+
+        $("#canvas").click(function(e){
+            getPosition(e);
+        });
+        $("#save").click(function(e){
+            saveImage();
+        });
+
+        let pointSize = 6;
+
+        function getPosition(event){
+            let rect = canvas.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+            drawCoordinates(x,y);
+        }
+
+        function drawCoordinates(x,y){
+            let ctx = document.getElementById("canvas").getContext("2d");
+            ctx.fillStyle = "#ff0a11"; // Red color
+            ctx.beginPath();
+            ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
+            ctx.fill();
+        }
+        function saveImage()
+        {
+            var canvas = document.getElementById("canvas");
+            var data = canvas.toDataURL();
+            $('input[id=image]').val(data);
+        }
+    </script>
+</body>
+</html>
+
+
+
