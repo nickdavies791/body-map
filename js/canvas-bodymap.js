@@ -3,9 +3,11 @@ const canvas = document.getElementById("canvas-bodymap");
 // The context for this canvas
 const context = canvas.getContext("2d");
 // The radius of the pin drawn on the canvas
-const pointSize = 4;
-// The width of the canvas and image
+const pointSize = 3;
+// The colour of the pin
 const pointColor = "#ff0a11";
+// The colour of the label
+const labelColor = "#222";
 // The count label next to the pin
 let pointCount = 0;
 
@@ -53,7 +55,8 @@ function drawCoordinates(x, y){
 function drawLabel(x, y){
     pointCount++;
     context.font = "bold 16px Arial";
-    context.fillText(pointCount, (x+12), y);
+    context.fillStyle = labelColor;
+    context.fillText(pointCount, (x+4), y+16);
 }
 
 // Clear canvas, reset the counter and redraw the image
