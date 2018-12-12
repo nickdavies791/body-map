@@ -11,8 +11,8 @@ let pointCount = 0;
 
 // On load, draw the image
 $(window).on("load", function() {
-    let image = document.getElementById("image-bodymap");
-    context.drawImage(image, 0, 0);
+    // Draw the image onto the canvas
+    drawImage();
     // When canvas is clicked get the position and draw the co-ordinates
     $("#canvas-bodymap").on("click", function(event){
         getPosition(event);
@@ -21,7 +21,16 @@ $(window).on("load", function() {
     $("#save").on("click", function(){
         saveImage();
     });
+    $("#clear").on("click", function(){
+        clearCanvas();
+    });
 });
+
+// Draw the image onto the canvas
+function drawImage(){
+    let image = document.getElementById("image-bodymap");
+    context.drawImage(image, 0, 0);
+}
 
 // Get size and position of canvas and pass to drawCoordinates()
 function getPosition(event){
@@ -40,10 +49,18 @@ function drawCoordinates(x, y){
     drawLabel(x, y);
 }
 
+// Draw a counter next to the pointer which increments
 function drawLabel(x, y){
     pointCount++;
     context.font = "bold 16px Arial";
     context.fillText(pointCount, (x+12), y);
+}
+
+// Clear canvas, reset the counter and redraw the image
+function clearCanvas(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    pointCount = 0;
+    drawImage();
 }
 
 // Get the Data URL for the canvas and pass to the textarea
